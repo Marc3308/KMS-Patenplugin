@@ -79,17 +79,12 @@ public class joinleaveevent implements Listener {
                     AFKManager.playerJoin(p);
 
                     for (Player parte : Bukkit.getServer().getOnlinePlayers()) {
-                        if (!parte.hasPermission("parte")) return;
-
-
-                        net.md_5.bungee.api.chat.TextComponent c = new net.md_5.bungee.api.chat.TextComponent(ChatColor.GREEN + p.getName() + org.bukkit.ChatColor.DARK_GREEN + " ist bereit für eine Einweisung!");
-                        String command = "/patentp " + p.getName();
-                        c.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
-                        parte.spigot().sendMessage(c);
-
-
-
-
+                        if (!parte.hasPermission("parte")) {
+                            net.md_5.bungee.api.chat.TextComponent c = new net.md_5.bungee.api.chat.TextComponent(ChatColor.GREEN + p.getName() + org.bukkit.ChatColor.DARK_GREEN + " ist bereit für eine Einweisung!");
+                            String command = "/patentp " + p.getName();
+                            c.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
+                            parte.spigot().sendMessage(c);
+                        }
                     }
                 }
             }
@@ -97,17 +92,12 @@ public class joinleaveevent implements Listener {
 
         //get a parte
         for (Player parte : Bukkit.getServer().getOnlinePlayers()) {
-            if (!parte.hasPermission("parte")) return;
-
-
-            net.md_5.bungee.api.chat.TextComponent c = new net.md_5.bungee.api.chat.TextComponent(ChatColor.GREEN + p.getName() + org.bukkit.ChatColor.DARK_GREEN + " ist bereit für eine Einweisung!");
-            String command = "/patentp " + p.getName();
-            c.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
-            parte.spigot().sendMessage(c);
-
-
-
-
+            if (!parte.hasPermission("parte")){
+                net.md_5.bungee.api.chat.TextComponent c = new net.md_5.bungee.api.chat.TextComponent(ChatColor.GREEN + p.getName() + org.bukkit.ChatColor.DARK_GREEN + " ist bereit für eine Einweisung!");
+                String command = "/patentp " + p.getName();
+                c.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, command));
+                parte.spigot().sendMessage(c);
+            }
         }
     }
 
@@ -119,10 +109,9 @@ public class joinleaveevent implements Listener {
         if (!p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(), "einzuweisen"), PersistentDataType.STRING))return;
 
         for (Player parte : Bukkit.getServer().getOnlinePlayers()) {
-            if (!parte.hasPermission("parte")) return;
-
-            parte.sendMessage(ChatColor.DARK_GREEN+p.getName()+ ChatColor.RED+" ist offline und nun nicht mehr zur Einweisung verfügbar");
-
+            if (!parte.hasPermission("parte")) {
+                parte.sendMessage(ChatColor.DARK_GREEN+p.getName()+ ChatColor.RED+" ist offline und nun nicht mehr zur Einweisung verfügbar");
+            }
         }
     }
 }
