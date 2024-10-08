@@ -29,8 +29,12 @@ public class joinleaveevent implements Listener {
 
         Player p = e.getPlayer();
 
-        if (p.getFirstPlayed()<100){
+        System.out.println(p.getPlayerTime());
 
+        if (!p.getPersistentDataContainer().has(new NamespacedKey("klassensysteem", "secretname"), PersistentDataType.STRING)
+                || !p.getPersistentDataContainer().get(new NamespacedKey("klassensysteem", "secretname"), PersistentDataType.STRING).equals("???")){
+
+            p.getPersistentDataContainer().set(new NamespacedKey(Patenplugin.getPlugin(),"firstjoin"), PersistentDataType.STRING,"yes");
             Location loc=new Location(p.getWorld(),con.getDouble("Firstlogtp"+".x"),con.getDouble("Firstlogtp"+".y"),con.getDouble("Firstlogtp"+".z"));
             loc.setYaw(con.getInt("Firstlogtp"+".Yaw"));
 
@@ -40,6 +44,7 @@ public class joinleaveevent implements Listener {
                 @Override
                 public void run() {
                     if(p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"einzuweisen"), PersistentDataType.STRING)){
+                        p.getPersistentDataContainer().remove(new NamespacedKey(Patenplugin.getPlugin(),"firstjoin"));
                         p.setInvulnerable(false);
                         cancel();
                     }
