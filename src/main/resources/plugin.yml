@@ -1,0 +1,20 @@
+name: Patenplugin
+version: '${project.version}'
+main: me.marc3308.patenplugin.Patenplugin
+api-version: 1.19
+authors: [Marc3308]
+description: Unser Partner Paten System
+
+commands:
+  patentp:
+    description: Teleportiert einen Paten zu einem einzuweisenden Spieler
+  patenlog:
+    description: lets you search the auditlog
+  changename:
+    description: chanches the name of your einweißer
+
+permissions:
+  parte:
+    description: Du hilfst den neuen Spielern sich zurecht zu finden
+  parteleitung:
+    description: Du kannst nun auch spezien einfach vergeben
