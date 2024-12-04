@@ -38,7 +38,7 @@ public final class Patenplugin extends JavaPlugin implements Listener {
                     public void run() {
                         Parteninfo();
                     }
-        },0,10*20); //alle 5min nachricht das er eingewiesen werden will
+        },0,5*60*20); //alle 5min nachricht das er eingewiesen werden will
 
 
 

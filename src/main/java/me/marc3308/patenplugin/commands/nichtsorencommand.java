@@ -1,5 +1,7 @@
 package me.marc3308.patenplugin.commands;
 
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -7,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import static me.marc3308.patenplugin.Patenplugin.einweiserlist;
 import static me.marc3308.patenplugin.Patenplugin.patenliste;
 
 public class nichtsorencommand implements CommandExecutor {
@@ -24,6 +27,12 @@ public class nichtsorencommand implements CommandExecutor {
         } else {
             patenliste.add(p);
             p.sendMessage(ChatColor.DARK_GREEN+"Dein Status ist nun: "+ChatColor.GREEN+"Anwesend");
+            einweiserlist.forEach(einw -> {
+                TextComponent yes= new TextComponent(net.md_5.bungee.api.ChatColor.YELLOW+"[Teleportieren]");
+                String com="/patentp "+einw.getName();
+                yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,com));
+                p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN+" ist bereit für eine Einweisung!"+yes);
+            });
         }
         return false;
     }
