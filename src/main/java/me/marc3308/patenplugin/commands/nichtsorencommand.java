@@ -28,10 +28,10 @@ public class nichtsorencommand implements CommandExecutor {
             patenliste.add(p);
             p.sendMessage(ChatColor.DARK_GREEN+"Dein Status ist nun: "+ChatColor.GREEN+"Anwesend");
             einweiserlist.forEach(einw -> {
-                TextComponent yes= new TextComponent(net.md_5.bungee.api.ChatColor.YELLOW+"[Teleportieren]");
+                TextComponent yes= new TextComponent(ChatColor.GREEN+einw.getName()+ ChatColor.DARK_GREEN +" ist bereit für eine Einweisung! "+ChatColor.YELLOW+"[Teleportieren]");
                 String com="/patentp "+einw.getName();
                 yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,com));
-                p.sendMessage(net.md_5.bungee.api.ChatColor.DARK_GREEN+" ist bereit für eine Einweisung!"+yes);
+                p.sendMessage(yes);
             });
         }
         return false;

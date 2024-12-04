@@ -148,7 +148,7 @@ public class hotbaritems implements Listener {
 
                 break;
             case BOOKSHELF:
-                System.out.println("Wegen Performance Deactiviert");
+                p.sendMessage("Wegen Performance Deactiviert");
                 e.setCancelled(true);
                 //Bukkit.getServer().dispatchCommand(p,"patenlog");
                 break;
