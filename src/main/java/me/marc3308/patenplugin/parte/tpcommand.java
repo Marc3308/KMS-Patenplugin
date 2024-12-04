@@ -1,7 +1,6 @@
 package me.marc3308.patenplugin.parte;
 
 import me.marc3308.patenplugin.Patenplugin;
-import me.marc3308.patenplugin.afkmanager.AFKManager;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,6 +13,8 @@ import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
+
+import static me.marc3308.patenplugin.Patenplugin.einweiserlist;
 
 public class tpcommand implements CommandExecutor {
 
@@ -54,9 +55,6 @@ public class tpcommand implements CommandExecutor {
             p.sendMessage(ChatColor.DARK_GREEN+ "Tut mir leid, aber "+ ChatColor.GREEN+ p3.getName() +ChatColor.DARK_GREEN+" kümmert sich schon um "+ChatColor.GREEN+ p2.getName());
             return false;
         }
-
-        //remove player von afk manager
-        AFKManager.playerleave(p);
 
         //saving the inv and clearing it for parten modus
         inventorymanager.saveinv(p);
@@ -119,7 +117,8 @@ public class tpcommand implements CommandExecutor {
         p.getInventory().setItem(7,liste);
         p.getInventory().setItem(8,abschluss);
 
-
+        //remove einzuweisenden
+        einweiserlist.remove(p2);
 
         return true;
     }

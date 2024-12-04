@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
@@ -147,12 +148,22 @@ public class hotbaritems implements Listener {
 
                 break;
             case BOOKSHELF:
+                System.out.println("Wegen Performance Deactiviert");
                 e.setCancelled(true);
-                Bukkit.getServer().dispatchCommand(p,"patenlog");
-                String command="/patenlog "+p.getName();
+                //Bukkit.getServer().dispatchCommand(p,"patenlog");
                 break;
         }
 
 
+    }
+
+    @EventHandler
+    public void oneat(PlayerItemConsumeEvent e){
+        Player p=e.getPlayer();
+
+        //check if spieler is nen parte und in einer einweißung
+        if(!p.hasPermission("parte"))return;
+        if(!p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING))return;
+        e.setCancelled(true);
     }
 }
