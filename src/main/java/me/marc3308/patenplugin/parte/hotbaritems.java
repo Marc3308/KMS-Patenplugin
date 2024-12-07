@@ -162,7 +162,7 @@ public class hotbaritems implements Listener {
         Player p=e.getPlayer();
 
         //check if spieler is nen parte und in einer einweißung
-        if(!p.hasPermission("parte"))return;
+        //if(!p.hasPermission("parte"))return;
         if(!p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING))return;
         e.setCancelled(true);
     }
