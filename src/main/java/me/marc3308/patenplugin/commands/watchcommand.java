@@ -46,6 +46,7 @@ public class watchcommand implements CommandExecutor, TabCompleter {
                 if(!p.isOnline() || !parte.isOnline()
                         || !p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING)
                         || !parte.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING)){
+                    p.getPersistentDataContainer().remove(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"));
                     p.sendMessage(ChatColor.RED+"Deine Beobachtung ist nun Zuende");
                     p.setInvisible(false);
                     p.setInvulnerable(false);

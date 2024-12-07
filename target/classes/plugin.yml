@@ -6,6 +6,9 @@ authors: [Marc3308]
 description: Unser Partner Paten System
 
 commands:
+  patenwatch:
+    description: You can watch the parten like a big boy
+    permission: juniorparte
   patentp:
     permission: parte
     description: Teleportiert einen Paten zu einem einzuweisenden Spieler
@@ -19,6 +22,8 @@ commands:
     description: do not desturb and dont get shown fpr the parten
 
 permissions:
+  juniorparte:
+    description: Du kannst zugucken
   parte:
     description: Du hilfst den neuen Spielern sich zurecht zu finden
   parteleitung:
