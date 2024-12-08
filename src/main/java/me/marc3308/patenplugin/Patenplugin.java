@@ -1,13 +1,16 @@
 package me.marc3308.patenplugin;
 
-import me.marc3308.patenplugin.commands.changenamecommand;
-import me.marc3308.patenplugin.commands.suchcommand;
+import me.marc3308.patenplugin.commands.*;
 import me.marc3308.patenplugin.parte.*;
 import me.marc3308.patenplugin.einzuweisender.clickblockev;
 import me.marc3308.patenplugin.einzuweisender.joinleaveevent;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,11 +21,24 @@ import java.util.List;
 
 public final class Patenplugin extends JavaPlugin implements Listener {
 
+
+    public static ArrayList<Player> einweiserlist=new ArrayList<>();
+    public static ArrayList<Player> patenliste=new ArrayList<>();
+
     public static Patenplugin plugin;
     @Override
     public void onEnable() {
 
         plugin = this;
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+                    @Override
+                    public void run() {
+                        Parteninfo();
+                    }
+        },0,5*60*20); //alle 5min nachricht das er eingewiesen werden will
+
+
 
         //todo einer checkliste damit er weiß was er alles machen muss
         //todo suchleiste geht noch net
@@ -35,9 +51,12 @@ public final class Patenplugin extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(new joinleaveevent(),this);
         Bukkit.getPluginManager().registerEvents(new invdropundpickupevent(),this);
 
+        getCommand("nichtstören").setExecutor(new nichtsorencommand());
         getCommand("patentp").setExecutor(new tpcommand());
-        getCommand("patenlog").setExecutor(new suchcommand());
+        //getCommand("patenlog").setExecutor(new suchcommand());  //todo performance probleme
         getCommand("changename").setExecutor(new changenamecommand());
+        getCommand("patenwatch").setExecutor(new watchcommand());
+        getCommand("patenübersicht").setExecutor(new patenbearbeitungcommand());
 
 
         File file = new File("plugins/KMS Plugins/Patenplugin","Locations.yml");
@@ -125,5 +144,27 @@ public final class Patenplugin extends JavaPlugin implements Listener {
 
         return num==1 ? con : num==2 ? con2 : con3;
 
+    }
+
+    public static void Parteninfo(){
+
+        einweiserlist.forEach(p -> {
+
+            if(!patenliste.isEmpty()){
+                p.sendMessage(ChatColor.GREEN+"Momentan sind "+ChatColor.GOLD+patenliste.size()+ChatColor.GREEN+" Paten online");
+                p.sendMessage(ChatColor.GREEN+"Bitte habe noch einen kleinen Moment Geduld!");
+            } else {
+                p.sendMessage(ChatColor.GREEN+"Momentan sind leider keine Paten online.");
+                p.sendMessage(ChatColor.GREEN+"Bitte gedulde dich noch einen Moment ");
+                p.sendMessage(ChatColor.GREEN+"oder mache einen Termin in deinem Ticket aus.");
+            }
+
+            patenliste.forEach(parte -> {
+                TextComponent yes= new TextComponent(ChatColor.GREEN+p.getName()+ ChatColor.DARK_GREEN +" ist bereit für eine Einweisung! "+ChatColor.YELLOW+"[Teleportieren]");
+                String command="/patentp "+p.getName();
+                yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,command));
+                parte.sendMessage(yes);
+            });
+        });
     }
 }

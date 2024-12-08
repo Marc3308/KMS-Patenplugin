@@ -16,7 +16,7 @@ public class invdropundpickupevent implements Listener {
 
         Player p=e.getPlayer();
 
-        if(!p.hasPermission("parte"))return;
+        //if(!p.hasPermission("parte"))return;
         if(!p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING))return;
         e.setCancelled(true);
 
@@ -27,7 +27,7 @@ public class invdropundpickupevent implements Listener {
 
         Player p=e.getPlayer();
 
-        if(!p.hasPermission("parte"))return;
+        //if(!p.hasPermission("parte"))return;
         if(!p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING))return;
         e.setCancelled(true);
 

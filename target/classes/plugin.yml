@@ -1,19 +1,33 @@
 name: Patenplugin
-version: '1.19.4'
+version: '1.21.1'
 main: me.marc3308.patenplugin.Patenplugin
 api-version: 1.19
 authors: [Marc3308]
 description: Unser Partner Paten System
 
 commands:
+  patenübersicht:
+    description: you can edit paten
+    permission: parteleitung
+  patenwatch:
+    description: You can watch the parten like a big boy
+    permission: juniorparte
   patentp:
+    permission: parte
     description: Teleportiert einen Paten zu einem einzuweisenden Spieler
   patenlog:
     description: lets you search the auditlog
+    permission: parteleitung
   changename:
+    permission: parte
     description: chanches the name of your einweißer
+  nichtstören:
+    permission: parte
+    description: do not desturb and dont get shown fpr the parten
 
 permissions:
+  juniorparte:
+    description: Du kannst zugucken
   parte:
     description: Du hilfst den neuen Spielern sich zurecht zu finden
   parteleitung:

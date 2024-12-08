@@ -77,7 +77,7 @@ public class suchcommand implements CommandExecutor {
             skull_lore.add(Patenplugin.getcon(1).getString(i+".date"));
             skull_lore.add("Eingewiesen von: "+Patenplugin.getcon(1).getString(i+".einweiser"));
             skull.setDisplayName(Patenplugin.getcon(1).getString(i+".name"));
-            skull.setOwner(Patenplugin.getcon(1).getString(i+".name"));
+            skull.setOwner(Bukkit.getOfflinePlayer(Patenplugin.getcon(1).getString(i+".name")).getName());
             skull.setLore(skull_lore);
             head.setItemMeta(skull);
 
