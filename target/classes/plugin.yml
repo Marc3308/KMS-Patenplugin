@@ -6,6 +6,9 @@ authors: [Marc3308]
 description: Unser Partner Paten System
 
 commands:
+  patenübersicht:
+    description: you can edit paten
+    permission: parteleitung
   patenwatch:
     description: You can watch the parten like a big boy
     permission: juniorparte
@@ -14,6 +17,7 @@ commands:
     description: Teleportiert einen Paten zu einem einzuweisenden Spieler
   patenlog:
     description: lets you search the auditlog
+    permission: parteleitung
   changename:
     permission: parte
     description: chanches the name of your einweißer

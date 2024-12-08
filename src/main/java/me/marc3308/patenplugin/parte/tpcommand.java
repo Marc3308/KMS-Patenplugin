@@ -114,7 +114,7 @@ public class tpcommand implements CommandExecutor {
         p.getInventory().setItem(1,Bone);
         p.getInventory().setItem(2,plat);
         p.getInventory().setItem(3,Steak);
-        p.getInventory().setItem(7,liste);
+        //p.getInventory().setItem(7,liste);  //normale parten brauchen das net
         p.getInventory().setItem(8,abschluss);
 
         //remove einzuweisenden

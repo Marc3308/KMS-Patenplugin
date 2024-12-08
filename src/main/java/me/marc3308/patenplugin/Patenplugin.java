@@ -1,9 +1,6 @@
 package me.marc3308.patenplugin;
 
-import me.marc3308.patenplugin.commands.changenamecommand;
-import me.marc3308.patenplugin.commands.nichtsorencommand;
-import me.marc3308.patenplugin.commands.suchcommand;
-import me.marc3308.patenplugin.commands.watchcommand;
+import me.marc3308.patenplugin.commands.*;
 import me.marc3308.patenplugin.parte.*;
 import me.marc3308.patenplugin.einzuweisender.clickblockev;
 import me.marc3308.patenplugin.einzuweisender.joinleaveevent;
@@ -59,6 +56,7 @@ public final class Patenplugin extends JavaPlugin implements Listener {
         //getCommand("patenlog").setExecutor(new suchcommand());  //todo performance probleme
         getCommand("changename").setExecutor(new changenamecommand());
         getCommand("patenwatch").setExecutor(new watchcommand());
+        getCommand("patenübersicht").setExecutor(new patenbearbeitungcommand());
 
 
         File file = new File("plugins/KMS Plugins/Patenplugin","Locations.yml");
