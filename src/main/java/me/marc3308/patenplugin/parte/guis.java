@@ -12,7 +12,6 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.io.File;
@@ -22,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import static me.marc3308.patenplugin.commands.suchcommand.howmutchheads;
+import static me.marc3308.patenplugin.commands.suchcommand.openlog;
 
 public class guis implements Listener {
 
@@ -39,45 +38,22 @@ public class guis implements Listener {
             ItemStack item=e.getCurrentItem();
             if(item==null)return;
 
-            if(item.getType().equals(Material.ANVIL)){
-                p.closeInventory();
-                Inventory anvilinv=Bukkit.createInventory(null, InventoryType.ANVIL,"Suche:");
-
-                ItemStack anv=new ItemStack(Material.NAME_TAG);
-                ItemMeta anv_meta=anv.getItemMeta();
-                anv_meta.setDisplayName("Bitte Name eingeben");
-                anv.setItemMeta(anv_meta);
-                anvilinv.setItem(0,anv);
-                p.openInventory(anvilinv);
-                return;
+            switch (item.getType()){
+                case ANVIL:
+                    String sucher=e.getInventory().getItem(47).getItemMeta().getDisplayName();
+                    sucher = sucher.equals("Neuste zuerst") ? "Älteste zuerst"
+                            : sucher.equals("Älteste zuerst") ? "Spieler"
+                            : sucher.equals("Spieler") ? "Pate" : "Neuste zuerst";
+                    openlog(p,sucher,Integer.valueOf(e.getInventory().getItem(51).getItemMeta().getDisplayName())-1);
+                    break;
+                case BOOK:
+                    openlog(p,e.getInventory().getItem(47).getItemMeta().getDisplayName(),1);
+                    break;
+                case ARROW:
+                    openlog(p,e.getInventory().getItem(47).getItemMeta().getDisplayName()
+                            ,Integer.valueOf(e.getInventory().getItem(51).getItemMeta().getDisplayName()));
+                    break;
             }
-
-            if(item.getType().equals(Material.BOOK)){
-                logseiten(1,e,p);
-                return;
-            }
-            if(!item.getType().equals(Material.ARROW))return;
-
-            if(e.getSlot()==47){
-
-                e.getView().getItem(47).getItemMeta().setDisplayName(Integer.toString(Integer.parseInt(e.getView().getItem(47).getItemMeta().getDisplayName())-1));
-                e.getView().getItem(51).getItemMeta().setDisplayName(Integer.toString(Integer.parseInt(e.getView().getItem(51).getItemMeta().getDisplayName())-1));
-
-                logseiten(Integer.parseInt(e.getView().getItem(47).getItemMeta().getDisplayName()),e,p);
-            } else {
-
-
-                if(e.getView().getItem(47).getType().equals(Material.ANVIL)){
-                    e.getView().getItem(47).getItemMeta().setDisplayName("2");
-                } else {
-                    e.getView().getItem(47).getItemMeta().setDisplayName(Integer.toString(Integer.parseInt(e.getView().getItem(47).getItemMeta().getDisplayName())+1));
-                }
-
-                e.getView().getItem(51).getItemMeta().setDisplayName(Integer.toString(Integer.parseInt(e.getView().getItem(51).getItemMeta().getDisplayName())+1));
-
-                logseiten(Integer.parseInt(e.getView().getItem(51).getItemMeta().getDisplayName()),e,p);
-            }
-
         }
 
         //suche
@@ -142,7 +118,7 @@ public class guis implements Listener {
                     p.getPersistentDataContainer().remove(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"));
                     inventorymanager.restorinv(p);
                     p.setInvulnerable(false);
-
+                    p.setInvisible(false);
 
                     //creat list that diskribes plugin
                     List<String> a=new ArrayList<>();
@@ -179,7 +155,6 @@ public class guis implements Listener {
 
                         }
                     }
-
 
                     //save the file
                     try {
@@ -219,93 +194,6 @@ public class guis implements Listener {
             p.getInventory().setItemInOffHand(off);
             p.updateInventory();
         }
-
-    }
-
-    public void logseiten(Integer seiten, InventoryClickEvent e, Player p){
-
-        Inventory Loginventar= Bukkit.createInventory(p,54,"                 §lLog");
-
-        //creat the allways components
-        ItemStack suche=new ItemStack(Material.ANVIL);
-        ItemMeta suche_meta=suche.getItemMeta();
-        suche_meta.setDisplayName("Suche");
-        ArrayList<String> suche_lore=new ArrayList<>();
-        suche_lore.add("Klicke hier um nach bestimmten Spielern zu suchen");
-        suche_meta.setLore(suche_lore);
-        suche.setItemMeta(suche_meta);
-
-        ItemStack backpfeil=new ItemStack(Material.ARROW);
-        ItemMeta backpfeil_meta=backpfeil.getItemMeta();
-
-        ItemStack vorpfeil=new ItemStack(Material.ARROW);
-        ItemMeta vorpfeil_meta=vorpfeil.getItemMeta();
-
-        ItemStack buch=new ItemStack(Material.BOOK);
-        ItemMeta buch_meta= buch.getItemMeta();
-        buch_meta.setDisplayName(ChatColor.GRAY+"§lSeite: "+Integer.toString(seiten));
-
-        if(seiten==1){
-            vorpfeil_meta.setDisplayName("2");
-        } else if(seiten==2){
-            backpfeil_meta.setDisplayName("1");
-            vorpfeil_meta.setDisplayName("3");
-        }else {
-            backpfeil_meta.setDisplayName(Integer.toString(seiten-1));
-            vorpfeil_meta.setDisplayName(Integer.toString(seiten+1));
-        }
-
-        //lock how manny heads there are
-        int heads=howmutchheads();
-        int a=0;
-
-        for(int i=heads-(45*(seiten-1));i>0;i--){
-
-            a++;
-            ItemStack head=new ItemStack(Material.PLAYER_HEAD,1,(short) 3);
-            SkullMeta skull=(SkullMeta) head.getItemMeta();
-
-            ArrayList<String> skull_lore=new ArrayList<>();
-            skull_lore.add(Patenplugin.getcon(1).getString(i+".date"));
-            skull_lore.add("Eingewiesen von: "+Patenplugin.getcon(1).getString(i+".einweiser"));
-            skull.setDisplayName(Patenplugin.getcon(1).getString(i+".name"));
-            skull.setOwner(Patenplugin.getcon(1).getString(i+".name"));
-            skull.setLore(skull_lore);
-            head.setItemMeta(skull);
-
-            Loginventar.setItem(Loginventar.firstEmpty(), head);
-
-            if(a>=45)break;
-
-        }
-
-        if(seiten==100){
-
-            //mein character wollte es so
-            buch.setType(Material.ENCHANTED_GOLDEN_APPLE);
-            buch_meta.setDisplayName(ChatColor.GOLD+"§n§oAiwendil, Lord and Savior");
-
-            ArrayList<String> buch_lore=new ArrayList<>();
-            buch_lore.add(ChatColor.GRAY+"Streichel mich!");
-            buch_meta.setLore(buch_lore);
-
-        }
-
-        buch.setItemMeta(buch_meta);
-        backpfeil.setItemMeta(backpfeil_meta);
-        vorpfeil.setItemMeta(vorpfeil_meta);
-
-        Loginventar.setItem(51,vorpfeil);
-        Loginventar.setItem(49,buch);
-
-        if(seiten==1){
-            Loginventar.setItem(47,suche);
-        } else {
-            Loginventar.setItem(47,backpfeil);
-        }
-
-        p.closeInventory();
-        p.openInventory(Loginventar);
 
     }
 

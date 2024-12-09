@@ -51,6 +51,7 @@ public class watchcommand implements CommandExecutor, TabCompleter {
         p.getInventory().setItem(1,plat);
 
         p.sendMessage(ChatColor.DARK_GREEN+"Du Beobachtest nun: "+ChatColor.GREEN+parte.getName());
+        if(!p.hasPermission("parteleitung"))parte.sendMessage(ChatColor.DARK_GREEN+"Ein Junior schaut dir jetzt zu: "+ChatColor.GREEN+p.getName());
 
         new BukkitRunnable(){
             @Override

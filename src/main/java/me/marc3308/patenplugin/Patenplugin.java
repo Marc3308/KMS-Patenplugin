@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public final class Patenplugin extends JavaPlugin implements Listener {
@@ -24,6 +25,8 @@ public final class Patenplugin extends JavaPlugin implements Listener {
 
     public static ArrayList<Player> einweiserlist=new ArrayList<>();
     public static ArrayList<Player> patenliste=new ArrayList<>();
+
+    public static HashMap<Integer, FileConfiguration> conlist=new HashMap<>();
 
     public static Patenplugin plugin;
     @Override
@@ -34,6 +37,16 @@ public final class Patenplugin extends JavaPlugin implements Listener {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
                     @Override
                     public void run() {
+                        File file = new File("plugins/KMS Plugins/Patenplugin","List.yml");
+                        FileConfiguration con1= YamlConfiguration.loadConfiguration(file);
+                        conlist.put(1,con1);
+                        file = new File("plugins/KMS Plugins/Patenplugin","Locations.yml");
+                        FileConfiguration con2= YamlConfiguration.loadConfiguration(file);
+                        conlist.put(2,con2);
+                        file = new File("plugins/KMS Plugins/Patenplugin","Checkliste.yml");
+                        FileConfiguration con3= YamlConfiguration.loadConfiguration(file);
+                        conlist.put(3,con3);
+
                         Parteninfo();
                     }
         },0,5*60*20); //alle 5min nachricht das er eingewiesen werden will
@@ -53,7 +66,7 @@ public final class Patenplugin extends JavaPlugin implements Listener {
 
         getCommand("nichtstören").setExecutor(new nichtsorencommand());
         getCommand("patentp").setExecutor(new tpcommand());
-        //getCommand("patenlog").setExecutor(new suchcommand());  //todo performance probleme
+        getCommand("patenlog").setExecutor(new suchcommand());
         getCommand("changename").setExecutor(new changenamecommand());
         getCommand("patenwatch").setExecutor(new watchcommand());
         getCommand("patenübersicht").setExecutor(new patenbearbeitungcommand());
@@ -118,6 +131,16 @@ public final class Patenplugin extends JavaPlugin implements Listener {
             i.printStackTrace();
         }
 
+        file = new File("plugins/KMS Plugins/Patenplugin","List.yml");
+        FileConfiguration con1= YamlConfiguration.loadConfiguration(file);
+        conlist.put(1,con1);
+        file = new File("plugins/KMS Plugins/Patenplugin","Locations.yml");
+        FileConfiguration con2= YamlConfiguration.loadConfiguration(file);
+        conlist.put(2,con2);
+        file = new File("plugins/KMS Plugins/Patenplugin","Checkliste.yml");
+        FileConfiguration con3= YamlConfiguration.loadConfiguration(file);
+        conlist.put(3,con3);
+
     }
 
 
@@ -132,18 +155,7 @@ public final class Patenplugin extends JavaPlugin implements Listener {
     }
 
     public static FileConfiguration getcon(Integer num){
-
-        File file = new File("plugins/KMS Plugins/Patenplugin","List.yml");
-        FileConfiguration con= YamlConfiguration.loadConfiguration(file);
-
-        file = new File("plugins/KMS Plugins/Patenplugin","Locations.yml");
-        FileConfiguration con2= YamlConfiguration.loadConfiguration(file);
-
-        file = new File("plugins/KMS Plugins/Patenplugin","Checkliste.yml");
-        FileConfiguration con3= YamlConfiguration.loadConfiguration(file);
-
-        return num==1 ? con : num==2 ? con2 : con3;
-
+        return conlist.get(num);
     }
 
     public static void Parteninfo(){

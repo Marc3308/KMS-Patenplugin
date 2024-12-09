@@ -15,6 +15,7 @@ me\marc3308\patenplugin\commands\nichtsorencommand.class
 me\marc3308\patenplugin\parte\inventorymanager.class
 me\marc3308\patenplugin\parte\invdropundpickupevent.class
 me\marc3308\patenplugin\commands\watchcommand$1.class
+me\marc3308\patenplugin\commands\SpielerKopf.class
 me\marc3308\patenplugin\commands\changenamecommand.class
 me\marc3308\patenplugin\parte\inventorymanager$PlayerData.class
 me\marc3308\patenplugin\commands\watchcommand.class
