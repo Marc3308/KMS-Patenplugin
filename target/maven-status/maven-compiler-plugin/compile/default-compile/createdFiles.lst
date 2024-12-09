@@ -7,6 +7,7 @@ me\marc3308\patenplugin\commands\suchcommand.class
 me\marc3308\patenplugin\parte\hotbaritems$1.class
 me\marc3308\patenplugin\Patenplugin$1.class
 me\marc3308\patenplugin\parte\leaveevent.class
+me\marc3308\patenplugin\commands\patenbearbeitungcommand.class
 me\marc3308\patenplugin\einzuweisender\joinleaveevent$1.class
 me\marc3308\patenplugin\parte\guis.class
 me\marc3308\patenplugin\parte\guis$1.class

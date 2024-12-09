@@ -4,9 +4,13 @@ import me.marc3308.patenplugin.Patenplugin;
 import me.marc3308.patenplugin.parte.inventorymanager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.*;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +41,14 @@ public class watchcommand implements CommandExecutor, TabCompleter {
         p.setInvisible(true);
         p.setInvulnerable(true);
         p.teleport(parte);
+
+        //the unsichbar
+        ItemStack plat=new ItemStack(Material.SPYGLASS);
+        ItemMeta plat_meta=plat.getItemMeta();
+        plat_meta.setDisplayName("Unsichtbarkeit Toggle");
+        plat.setItemMeta(plat_meta);
+
+        p.getInventory().setItem(1,plat);
 
         p.sendMessage(ChatColor.DARK_GREEN+"Du Beobachtest nun: "+ChatColor.GREEN+parte.getName());
 
