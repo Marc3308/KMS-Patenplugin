@@ -104,6 +104,12 @@ public class tpcommand implements CommandExecutor {
         Steak_meta.setDisplayName("Essen");
         Steak.setItemMeta(Steak_meta);
 
+        //invis
+        ItemStack glass=new ItemStack(Material.SPYGLASS);
+        ItemMeta glass_meta=glass.getItemMeta();
+        glass_meta.setDisplayName("Unsichtbarkeit Toggle");
+        glass.setItemMeta(glass_meta);
+
         //item zum abschliesen der einweißung
         ItemStack abschluss=new ItemStack(Material.RED_CONCRETE_POWDER);
         ItemMeta abschluss_meta=abschluss.getItemMeta();
@@ -114,7 +120,7 @@ public class tpcommand implements CommandExecutor {
         p.getInventory().setItem(1,Bone);
         p.getInventory().setItem(2,plat);
         p.getInventory().setItem(3,Steak);
-        //p.getInventory().setItem(7,liste);  //normale parten brauchen das net
+        p.getInventory().setItem(7,glass);
         p.getInventory().setItem(8,abschluss);
 
         //remove einzuweisenden

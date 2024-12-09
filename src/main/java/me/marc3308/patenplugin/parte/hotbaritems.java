@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,13 +29,8 @@ public class hotbaritems implements Listener {
         Player p=e.getPlayer();
 
         //check if spieler is nen parte und in einer einweißung
-        if(!p.hasPermission("parte"))return;
+        //if(!p.hasPermission("parte"))return;
         if(!p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING))return;
-
-
-
-        UUID p2uuid =UUID.fromString(p.getPersistentDataContainer().get(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING));
-        Player einzuweisender = Bukkit.getPlayer(p2uuid);
 
         Material hand=p.getInventory().getItemInMainHand().getType();
 
@@ -69,6 +65,10 @@ public class hotbaritems implements Listener {
                 break;
 
             case BONE:
+
+                UUID p2uuid =UUID.fromString(p.getPersistentDataContainer().get(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING));
+                Player einzuweisender = Bukkit.getPlayer(p2uuid);
+
                 if(einzuweisender==null){
                     p.sendMessage(ChatColor.DARK_GREEN+" Der Spieler ist leider nicht mehr online");
                     return;
@@ -151,6 +151,9 @@ public class hotbaritems implements Listener {
                 p.sendMessage("Wegen Performance Deactiviert");
                 e.setCancelled(true);
                 //Bukkit.getServer().dispatchCommand(p,"patenlog");
+                break;
+            case SPYGLASS:
+                p.setInvisible(!p.isInvisible());
                 break;
         }
 
