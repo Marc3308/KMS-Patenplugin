@@ -57,6 +57,7 @@ public final class Patenplugin extends JavaPlugin implements Listener {
         //todo suchleiste geht noch net
 
 
+        //patenzeug
         Bukkit.getPluginManager().registerEvents(new guis(),this);
         Bukkit.getPluginManager().registerEvents(new leaveevent(),this);
         Bukkit.getPluginManager().registerEvents(new hotbaritems(),this);
@@ -71,6 +72,8 @@ public final class Patenplugin extends JavaPlugin implements Listener {
         getCommand("patenwatch").setExecutor(new watchcommand());
         getCommand("patenübersicht").setExecutor(new patenbearbeitungcommand());
 
+        //modzeug
+        getCommand("moderationsmodus").setExecutor(new moderationsmoduscommand());
 
         File file = new File("plugins/KMS Plugins/Patenplugin","Locations.yml");
         FileConfiguration con= YamlConfiguration.loadConfiguration(file);
