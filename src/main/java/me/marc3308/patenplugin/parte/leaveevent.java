@@ -24,14 +24,19 @@ public class leaveevent implements Listener {
 
         Player p=e.getPlayer();
 
-        if(!p.hasPermission("parte"))return;
-        patenliste.remove(p);
+        if(p.hasPermission("parte"))patenliste.remove(p);
         if(!p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING))return;
         inventorymanager.restorinv(p);
-        p.getPersistentDataContainer().remove(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"));
+        p.setInvisible(false);
+        p.setInvulnerable(false);
+        if(!p.hasPermission("parte")){
+            p.getPersistentDataContainer().remove(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"));
+            return;
+        }
 
         UUID p2uuid =UUID.fromString(p.getPersistentDataContainer().get(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING));
         Player einzuweisender = Bukkit.getPlayer(p2uuid);
+        p.getPersistentDataContainer().remove(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"));
 
         //checkt if einzuweisender is on
         if(einzuweisender==null)return;

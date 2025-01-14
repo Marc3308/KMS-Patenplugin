@@ -18,5 +18,5 @@ me\marc3308\patenplugin\commands\watchcommand$1.class
 me\marc3308\patenplugin\commands\SpielerKopf.class
 me\marc3308\patenplugin\commands\changenamecommand.class
 me\marc3308\patenplugin\parte\inventorymanager$PlayerData.class
+me\marc3308\patenplugin\commands\moderationsmoduscommand.class
 me\marc3308\patenplugin\commands\watchcommand.class
-me\marc3308\patenplugin\parte\inventorymanager$1.class

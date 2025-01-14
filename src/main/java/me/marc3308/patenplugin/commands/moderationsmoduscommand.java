@@ -45,6 +45,10 @@ public class moderationsmoduscommand implements CommandExecutor {
         p.getInventory().setItem(2,getItem(Material.NETHERITE_HOE,"Block Zerstören",new ArrayList<>(),false));
         //Bukkit
         p.getInventory().setItem(3,getItem(Material.BUCKET,"Flüssigkeit kapput",new ArrayList<>(),false));
+        //Vansih
+        p.getInventory().setItem(7,getItem(Material.BARRIER,ChatColor.GREEN+"Vanish ausschalten",new ArrayList<>(),false));
+        //Modmodus
+        p.getInventory().setItem(8,getItem(Material.RED_CONCRETE,"Modmodus beenden",new ArrayList<>(),false));
 
         return true;
     }

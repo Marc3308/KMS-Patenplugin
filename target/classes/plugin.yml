@@ -2,10 +2,14 @@ name: Patenplugin
 version: '1.21.1'
 main: me.marc3308.patenplugin.Patenplugin
 api-version: 1.19
+depend: [zerotrust]
 authors: [Marc3308]
 description: Unser Partner Paten System
 
 commands:
+  moderationsmodus:
+    description: you aktivate the mod mode
+    permission: mod
   patenübersicht:
     description: you can edit paten
     permission: parteleitung
@@ -32,3 +36,7 @@ permissions:
     description: Du hilfst den neuen Spielern sich zurecht zu finden
   parteleitung:
     description: Du kannst nun auch spezien einfach vergeben
+  mod:
+    description: Du bist ein Moderator
+  modleitung:
+    description: Du bist Mod Leitung

@@ -5,11 +5,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.io.Console;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class patenbearbeitungcommand implements CommandExecutor, TabCompleter {
@@ -18,8 +15,8 @@ public class patenbearbeitungcommand implements CommandExecutor, TabCompleter {
         if(!(sender instanceof Player))return false;
         Player p=(Player) sender;
         if(args.length<2){
-            System.out.println(args.length);
             p.sendMessage(ChatColor.RED+"/patenübersicht <Name> <Arbeit>");
+            return true;
         }
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"lp user "+args[0]+" permission set parteleitung false");
         Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"lp user "+args[0]+" permission set parte false");
@@ -27,15 +24,15 @@ public class patenbearbeitungcommand implements CommandExecutor, TabCompleter {
         p.sendMessage(ChatColor.DARK_GREEN+"Der Benutzer: "+ChatColor.GREEN+args[0]+ChatColor.DARK_RED+" ist nun ein: "+ChatColor.GREEN+args[1]);
 
         switch (args[1]){
-            case "parteleitung":
+            case "Patenleitung":
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"lp user "+args[0]+" permission set parteleitung true");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"lp user "+args[0]+" permission set parte true");
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"lp user "+args[0]+" permission set juniorparte true");
                 break;
-            case "parte":
+            case "Pate":
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"lp user "+args[0]+" permission set parte true");
                 break;
-            case "juniorparte":
+            case "Juniorpate":
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"lp user "+args[0]+" permission set juniorparte true");
                 break;
         }
@@ -50,9 +47,9 @@ public class patenbearbeitungcommand implements CommandExecutor, TabCompleter {
             if(args.length == 0)return list;
             if(args.length == 1)Bukkit.getOnlinePlayers().forEach(p -> list.add(p.getName()));
             if(args.length == 2){
-                list.add("parteleitung");
-                list.add("parte");
-                list.add("juniorparte");
+                list.add("Patenleitung");
+                list.add("Pate");
+                list.add("Juniorpate");
                 list.add("kündigen");
             }
             if(args.length>2)return list;
