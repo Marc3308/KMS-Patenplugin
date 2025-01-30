@@ -1,6 +1,9 @@
 package me.marc3308.patenplugin;
 
 import me.marc3308.patenplugin.commands.*;
+import me.marc3308.patenplugin.moderator.moderationsmoduscommand;
+import me.marc3308.patenplugin.moderator.moderatorevents;
+import me.marc3308.patenplugin.moderator.modkommentardommand;
 import me.marc3308.patenplugin.parte.*;
 import me.marc3308.patenplugin.einzuweisender.clickblockev;
 import me.marc3308.patenplugin.einzuweisender.joinleaveevent;
@@ -8,17 +11,22 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffectType;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public final class Patenplugin extends JavaPlugin implements Listener {
 
@@ -51,12 +59,6 @@ public final class Patenplugin extends JavaPlugin implements Listener {
                     }
         },0,5*60*20); //alle 5min nachricht das er eingewiesen werden will
 
-
-
-        //todo einer checkliste damit er weiß was er alles machen muss
-        //todo suchleiste geht noch net
-
-
         //patenzeug
         Bukkit.getPluginManager().registerEvents(new guis(),this);
         Bukkit.getPluginManager().registerEvents(new leaveevent(),this);
@@ -73,7 +75,9 @@ public final class Patenplugin extends JavaPlugin implements Listener {
         getCommand("patenübersicht").setExecutor(new patenbearbeitungcommand());
 
         //modzeug
+        Bukkit.getPluginManager().registerEvents(new moderatorevents(),this);
         getCommand("moderationsmodus").setExecutor(new moderationsmoduscommand());
+        getCommand("modkommentar").setExecutor(new modkommentardommand());
 
         File file = new File("plugins/KMS Plugins/Patenplugin","Locations.yml");
         FileConfiguration con= YamlConfiguration.loadConfiguration(file);
@@ -149,6 +153,28 @@ public final class Patenplugin extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
+
+        //todo trhow the parten out of the modmode
+        //leute aus dem modus rausschmeißen
+        Bukkit.getOnlinePlayers().forEach(p -> {
+            if(p.getPersistentDataContainer().has(new NamespacedKey(plugin,"modmode"), PersistentDataType.BOOLEAN)){
+                p.getPersistentDataContainer().remove(new NamespacedKey(plugin,"beobachtermodus"));
+                p.getPersistentDataContainer().remove(new NamespacedKey(plugin,"modmode"));
+                p.setInvulnerable(false);
+                p.setGameMode(GameMode.SURVIVAL);
+                p.setAllowFlight(false);
+                p.setFlying(false);
+                inventorymanager.restorinv(p);
+                p.removePotionEffect(PotionEffectType.GLOWING);
+            }
+            if(p.getPersistentDataContainer().has(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"), PersistentDataType.STRING)){
+                inventorymanager.restorinv(p);
+                p.setInvisible(false);
+                p.setInvulnerable(false);
+                p.getPersistentDataContainer().remove(new NamespacedKey(Patenplugin.getPlugin(),"partenmodus"));
+            }
+        });
+
         System.out.println("Patenplugin is working");
         System.out.println("Createt by Marc3308");
     }

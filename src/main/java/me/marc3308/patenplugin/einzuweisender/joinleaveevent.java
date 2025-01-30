@@ -1,6 +1,7 @@
 package me.marc3308.patenplugin.einzuweisender;
 
 import me.marc3308.patenplugin.Patenplugin;
+import me.marc3308.patenplugin.utility;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -29,6 +30,7 @@ public class joinleaveevent implements Listener {
     public void onjoin(PlayerJoinEvent e) {
 
         Player p = e.getPlayer();
+        //utility.sendpack(p);
 
         if (!p.getPersistentDataContainer().has(new NamespacedKey("klassensysteem", "secretname"), PersistentDataType.STRING)
                 || p.getPersistentDataContainer().get(new NamespacedKey("klassensysteem", "secretname"), PersistentDataType.STRING).equals("???")){
