@@ -33,14 +33,19 @@ public class moderationsmoduscommand implements CommandExecutor {
         if(p.getPersistentDataContainer().has(new NamespacedKey(plugin,"modmode"),PersistentDataType.BOOLEAN)){
             p.getPersistentDataContainer().remove(new NamespacedKey(plugin,"beobachtermodus"));
             p.getPersistentDataContainer().remove(new NamespacedKey(plugin,"modmode"));
-            for (Player o : Bukkit.getOnlinePlayers())o.showPlayer(plugin,p);
+            Bukkit.getOnlinePlayers().forEach(o -> {
+                o.showPlayer(plugin,p);
+                if(o.getPersistentDataContainer().has(new NamespacedKey(plugin,"modmode"),PersistentDataType.BOOLEAN))p.hidePlayer(plugin,o);
+            });
             p.setInvulnerable(false);
             p.setGameMode(GameMode.SURVIVAL);
             p.setAllowFlight(false);
             p.setFlying(false);
             inventorymanager.restorinv(p);
+            p.removePotionEffect(PotionEffectType.SATURATION);
+            p.removePotionEffect(PotionEffectType.NIGHT_VISION);
             p.removePotionEffect(PotionEffectType.GLOWING);
-            //utility.sendpack(p);
+            //sendchanchepack(p);
             // Packet camera
             PacketContainer cameraPacket = ProtocolLibrary.getProtocolManager().createPacket(PacketType.Play.Server.CAMERA);
             cameraPacket.getIntegers().write(0, p.getEntityId());
@@ -51,9 +56,11 @@ public class moderationsmoduscommand implements CommandExecutor {
 
         //save the inv
         inventorymanager.saveinv(p);
-        //utility.sendpack(p);
+        //sendchanchepack(p);
 
         //set the mode
+        p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 10, false, false));
+        p.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, Integer.MAX_VALUE, 10, false, false));
         p.getPersistentDataContainer().set(new NamespacedKey(Patenplugin.getPlugin(),"modmode"), PersistentDataType.BOOLEAN,true);
         p.setInvulnerable(true);
         Bukkit.getOnlinePlayers().forEach(o -> {
@@ -65,25 +72,7 @@ public class moderationsmoduscommand implements CommandExecutor {
         p.setFlying(true);
 
         //Stock der weißheit, gibt info über nen block
-        p.getInventory().setItem(0,getItem(Material.STICK,ChatColor.BOLD+""+ChatColor.BLUE+"Block Information",new ArrayList<>(){{
-            add("Rechtsklicken um Informationen über den Block zu erhalten");
-            add("~Powerd by Coreprotect");
-        }},true));
-        //Beobachter
-        p.getInventory().setItem(1,getItem(Material.COMPASS,ChatColor.BOLD+""+ChatColor.DARK_GREEN+"Spieler Beobachten",new ArrayList<>(){{
-            add("Rechtsklicken um den Spieler zu beobachten");
-        }},false));
-        //Blockedit
-        p.getInventory().setItem(2,getItem(Material.VAULT,ChatColor.BOLD+""+ChatColor.DARK_GRAY+"Block Menü",new ArrayList<>(){{
-            add("Clicken um das Blockmenü zu öffnen");
-        }},false));
-
-        //clear
-        p.getInventory().setItem(6,getItem(Material.BRUSH,ChatColor.BOLD+""+ChatColor.LIGHT_PURPLE+"Clear inventar",new ArrayList<>(),false));
-        //Vansih
-        p.getInventory().setItem(7,getItem(Material.BARRIER,ChatColor.BOLD+""+ChatColor.GREEN+"Vanish ausschalten",new ArrayList<>(),false));
-        //Modmodus
-        p.getInventory().setItem(8,getItem(Material.RED_CONCRETE,ChatColor.BOLD+""+ChatColor.RED+"Modmodus Beenden",new ArrayList<>(),false));
+        starterkit(p);
 
         return true;
     }
@@ -97,5 +86,35 @@ public class moderationsmoduscommand implements CommandExecutor {
         item.setItemMeta(meta);
 
         return item;
+    }
+
+    public static void starterkit(Player p){
+        //Stock der weißheit, gibt info über nen block
+        p.getInventory().setItem(0,getItem(Material.STICK,ChatColor.BOLD+""+ChatColor.BLUE+"Block Information",new ArrayList<>(){{
+            add("Luft Rechtsklicken um Info-modus zu toggeln");
+            add("~Powerd by Coreprotect");
+        }},true));
+        //Beobachter
+        p.getInventory().setItem(1,getItem(Material.COMPASS,ChatColor.BOLD+""+ChatColor.DARK_GREEN+"Spieler Beobachten",new ArrayList<>(){{
+            add("Rechtsklicken um den Spieler zu beobachten");
+        }},false));
+
+        if(p.getInventory().getItem(2)==null){
+            //Blockedit
+            p.getInventory().setItem(2,getItem(Material.VAULT,ChatColor.BOLD+""+ChatColor.DARK_GRAY+"Block Menü",new ArrayList<>(){{
+                add("Clicken um das Blockmenü zu öffnen");
+            }},false));
+        }
+
+        //clear
+        p.getInventory().setItem(6,getItem(Material.BRUSH,ChatColor.BOLD+""+ChatColor.LIGHT_PURPLE+"clear inventory",new ArrayList<>(),false));
+        //Vansih
+        if(p.hasPotionEffect(PotionEffectType.GLOWING)){
+            p.getInventory().setItem(7,getItem(Material.GLASS,ChatColor.BOLD+""+ChatColor.GREEN+"Vanish einschalten",new ArrayList<>(),false));
+        } else {
+            p.getInventory().setItem(7,getItem(Material.BARRIER,ChatColor.BOLD+""+ChatColor.GREEN+"Vanish ausschalten",new ArrayList<>(),false));
+        }
+        //Modmodus
+        p.getInventory().setItem(8,getItem(Material.RED_CONCRETE,ChatColor.BOLD+""+ChatColor.RED+"Modmodus Beenden",new ArrayList<>(),false));
     }
 }

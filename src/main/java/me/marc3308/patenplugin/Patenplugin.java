@@ -77,7 +77,7 @@ public final class Patenplugin extends JavaPlugin implements Listener {
         //modzeug
         Bukkit.getPluginManager().registerEvents(new moderatorevents(),this);
         getCommand("moderationsmodus").setExecutor(new moderationsmoduscommand());
-        getCommand("modkommentar").setExecutor(new modkommentardommand());
+        getCommand("kommentar").setExecutor(new modkommentardommand());
 
         File file = new File("plugins/KMS Plugins/Patenplugin","Locations.yml");
         FileConfiguration con= YamlConfiguration.loadConfiguration(file);

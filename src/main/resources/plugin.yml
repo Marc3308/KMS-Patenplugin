@@ -28,9 +28,10 @@ commands:
   nichtstören:
     permission: parte
     description: do not desturb and dont get shown fpr the parten
-  modkommentar:
+  kommentar:
     permission: mod
     description: lets you write a comment to a player
+
 permissions:
   juniorparte:
     description: Du kannst zugucken

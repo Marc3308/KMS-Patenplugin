@@ -24,8 +24,8 @@ public class modkommentardommand implements CommandExecutor {
             return false;
         }
         Player comentierter=Bukkit.getPlayer(args[0]);
-        String newname=comentierter.getPersistentDataContainer().getOrDefault(new NamespacedKey(plugin, "commentare"), PersistentDataType.STRING,"")+";"+args[1];
-        for(int i=3;i<args.length;i++)newname+=" "+args[i];
+        String newname=comentierter.getPersistentDataContainer().has(new NamespacedKey(plugin, "commentare"), PersistentDataType.STRING) ? comentierter.getPersistentDataContainer().get(new NamespacedKey(plugin, "commentare"), PersistentDataType.STRING)+";"+args[1] : args[1];
+        for(int i=2;i<args.length;i++)newname+=" "+args[i];
         newname+=";~"+p.getName();
         comentierter.getPersistentDataContainer().set(new NamespacedKey(plugin, "commentare"), PersistentDataType.STRING,newname);
         moderatorevents.openplayerinv(p,comentierter);

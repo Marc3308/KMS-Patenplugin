@@ -1,5 +1,4 @@
 me\marc3308\patenplugin\moderator\moderationsmoduscommand.class
-me\marc3308\patenplugin\moderator\moderatorevents$26.class
 me\marc3308\patenplugin\parte\tpcommand.class
 me\marc3308\patenplugin\parte\hotbaritems.class
 me\marc3308\patenplugin\Patenplugin.class
@@ -19,11 +18,9 @@ me\marc3308\patenplugin\moderator\moderationsmoduscommand$3.class
 me\marc3308\patenplugin\einzuweisender\joinleaveevent$1.class
 me\marc3308\patenplugin\moderator\moderatorevents$12.class
 me\marc3308\patenplugin\commands\nichtsorencommand.class
-me\marc3308\patenplugin\moderator\moderatorevents$27.class
 me\marc3308\patenplugin\moderator\moderatorevents$4.class
 me\marc3308\patenplugin\utility$1.class
 me\marc3308\patenplugin\commands\watchcommand$1.class
-me\marc3308\patenplugin\moderator\moderatorevents$23.class
 me\marc3308\patenplugin\commands\changenamecommand.class
 me\marc3308\patenplugin\parte\inventorymanager$PlayerData.class
 me\marc3308\patenplugin\utility.class
@@ -37,7 +34,6 @@ me\marc3308\patenplugin\einzuweisender\joinleaveevent.class
 me\marc3308\patenplugin\moderator\moderatorevents$18.class
 me\marc3308\patenplugin\commands\patenbearbeitungcommand.class
 me\marc3308\patenplugin\moderator\moderatorevents$8.class
-me\marc3308\patenplugin\moderator\moderatorevents$24.class
 me\marc3308\patenplugin\moderator\moderatorevents$1.class
 me\marc3308\patenplugin\moderator\moderatorevents$14.class
 me\marc3308\patenplugin\moderator\moderatorevents$21.class
@@ -50,7 +46,5 @@ me\marc3308\patenplugin\moderator\moderatorevents$9.class
 me\marc3308\patenplugin\moderator\moderatorevents$2.class
 me\marc3308\patenplugin\moderator\modkommentardommand.class
 me\marc3308\patenplugin\commands\SpielerKopf.class
-me\marc3308\patenplugin\moderator\moderatorevents$22.class
 me\marc3308\patenplugin\moderator\moderatorevents.class
 me\marc3308\patenplugin\moderator\moderationsmoduscommand$1.class
-me\marc3308\patenplugin\moderator\moderatorevents$25.class
