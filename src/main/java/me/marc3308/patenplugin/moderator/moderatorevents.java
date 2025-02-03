@@ -108,7 +108,23 @@ public class moderatorevents implements Listener {
                 if(e.getAction().equals(Action.RIGHT_CLICK_AIR))Bukkit.dispatchCommand(p,"co i");
                 break;
             case COMPASS:
-                openmodinv(p,"Online",1);
+                if(e.getAction().isLeftClick()){
+                    Location saveloc=p.getLocation();
+                    Location location = p.getLocation();
+                    while (true){
+                        location.add(location.getDirection().normalize().multiply(2)); // Move 2 block forward
+                        if(location.distance(saveloc)>100 || location.getY()<-64){
+                            p.sendMessage(ChatColor.RED+"Kein freier Platz gefunden");
+                            return;
+                        }
+                        if(p.getWorld().getBlockAt(location).getType().equals(Material.AIR) && p.getWorld().getBlockAt(location.clone().add(0,1,0)).getType().equals(Material.AIR)){
+                            p.teleport(location);
+                            return;
+                        }
+                    }
+                } else {
+                    openmodinv(p,"Online",1);
+                }
                 break;
             case VAULT:
                 openblockinf(p);
@@ -125,7 +141,7 @@ public class moderatorevents implements Listener {
                             return;
                         }
                         // Particles
-                        for (int i = 0; i < 5; i++)p.getWorld().spawnParticle(Particle.DUST, p.getLocation(), 10, 0.5, i%2+0.5, 0.5,  new Particle.DustOptions(Color.fromBGR(146,110,224), 1.0f));
+                        for (int i = 0; i < 5; i++)p.getWorld().spawnParticle(Particle.DUST, p.getLocation(), 10, 0.5, i%2+0.5, 0.5,  new Particle.DustOptions(Color.PURPLE,1.0f));
                     }
                 }.runTaskTimer(plugin,0,10);
                 break;

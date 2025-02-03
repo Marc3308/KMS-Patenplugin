@@ -96,6 +96,7 @@ public class moderationsmoduscommand implements CommandExecutor {
         }},true));
         //Beobachter
         p.getInventory().setItem(1,getItem(Material.COMPASS,ChatColor.BOLD+""+ChatColor.DARK_GREEN+"Spieler Beobachten",new ArrayList<>(){{
+            add("Linksklicken um zur nächsten freien stelle zu teleportieren");
             add("Rechtsklicken um den Spieler zu beobachten");
         }},false));
 
