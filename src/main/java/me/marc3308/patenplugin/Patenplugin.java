@@ -1,5 +1,9 @@
 package me.marc3308.patenplugin;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketEvent;
 import me.marc3308.patenplugin.commands.*;
 import me.marc3308.patenplugin.moderator.moderationsmoduscommand;
 import me.marc3308.patenplugin.moderator.moderatorevents;
@@ -27,6 +31,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
+import static me.marc3308.patenplugin.Patenplugin.plugin;
 
 public final class Patenplugin extends JavaPlugin implements Listener {
 
@@ -147,14 +153,11 @@ public final class Patenplugin extends JavaPlugin implements Listener {
         file = new File("plugins/KMS Plugins/Patenplugin","Checkliste.yml");
         FileConfiguration con3= YamlConfiguration.loadConfiguration(file);
         conlist.put(3,con3);
-
     }
 
 
     @Override
     public void onDisable() {
-
-        //todo trhow the parten out of the modmode
         //leute aus dem modus rausschmeißen
         Bukkit.getOnlinePlayers().forEach(p -> {
             if(p.getPersistentDataContainer().has(new NamespacedKey(plugin,"modmode"), PersistentDataType.BOOLEAN)){

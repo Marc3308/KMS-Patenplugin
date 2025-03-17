@@ -33,10 +33,12 @@ public class moderationsmoduscommand implements CommandExecutor {
         if(p.getPersistentDataContainer().has(new NamespacedKey(plugin,"modmode"),PersistentDataType.BOOLEAN)){
             p.getPersistentDataContainer().remove(new NamespacedKey(plugin,"beobachtermodus"));
             p.getPersistentDataContainer().remove(new NamespacedKey(plugin,"modmode"));
+            p.getPersistentDataContainer().remove(new NamespacedKey(plugin,"xraymode"));
             Bukkit.getOnlinePlayers().forEach(o -> {
                 o.showPlayer(plugin,p);
                 if(o.getPersistentDataContainer().has(new NamespacedKey(plugin,"modmode"),PersistentDataType.BOOLEAN))p.hidePlayer(plugin,o);
             });
+            p.setCollidable(true);
             p.setInvulnerable(false);
             p.setGameMode(GameMode.SURVIVAL);
             p.setAllowFlight(false);
@@ -70,6 +72,7 @@ public class moderationsmoduscommand implements CommandExecutor {
         p.setGameMode(GameMode.ADVENTURE);
         p.setAllowFlight(true);
         p.setFlying(true);
+        p.setCollidable(false);
 
         //Stock der weißheit, gibt info über nen block
         starterkit(p);
